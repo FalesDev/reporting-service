@@ -10,7 +10,7 @@ spring:
       enabled: true
       path: "/h2"
   profiles:
-    include: ${SPRING_PROFILES_ACTIVE:local}
+    include: null
 logging:
   level:
     co.com.pragma: "trace"
@@ -23,6 +23,7 @@ management:
     web:
       exposure:
         include: "health,prometheus"
+      base-path: /reporting/actuator
   endpoint:
     health:
       probes:

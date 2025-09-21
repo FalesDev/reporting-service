@@ -46,10 +46,10 @@ public class DynamoDBConfig {
     }
 
     @Bean
-    @Profile({"dev", "cer", "pdn"})
+    @Profile({"dev", "cer", "pdn","prod"})
     public DynamoDbAsyncClient amazonDynamoDBAsync(MetricPublisher publisher,@Value("${aws.region}") String region) {
         return DynamoDbAsyncClient.builder()
-                .credentialsProvider(WebIdentityTokenFileCredentialsProvider.create())
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.of(region))
                 .overrideConfiguration(o -> o.addMetricPublisher(publisher))
                 .build();
