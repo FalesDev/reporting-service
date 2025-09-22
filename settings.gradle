@@ -30,3 +30,11 @@ include ':sqs-listener'
 project(':sqs-listener').projectDir = file('./infrastructure/entry-points/sqs-listener')
 include ':logger'
 project(':logger').projectDir = file('./infrastructure/helpers/logger')
+include ':webclient'
+project(':webclient').projectDir = file('./infrastructure/driven-adapters/webclient')
+include ':security'
+project(':security').projectDir = file('./infrastructure/driven-adapters/security')
+include ':sqs-sender'
+project(':sqs-sender').projectDir = file('./infrastructure/driven-adapters/sqs-sender')
+include ':scheduler'
+project(':scheduler').projectDir = file('./infrastructure/entry-points/scheduler')

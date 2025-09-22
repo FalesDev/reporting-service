@@ -23,7 +23,7 @@ management:
     web:
       exposure:
         include: "health,prometheus"
-      base-path: /reporting/actuator
+      base-path: "/reporting/actuator"
   endpoint:
     health:
       probes:
@@ -38,3 +38,29 @@ entrypoint:
     maxNumberOfMessages: 10
     visibilityTimeoutSeconds: 10
     numberOfThreads: 1
+jwt:
+  secret: ${JWT_SECRET}
+services:
+  request:
+    url: "http://localhost:8090"
+  auth:
+    url: "http://localhost:8080"
+adapter:
+  sqs:
+    region: ${AWS_REGION}
+    queues:
+      notifications: ${AWS_SQS_NOTIFICACIONES}
+
+queue:
+  names:
+    notifications: notifications
+job:
+  auth:
+    email: ${REPORT_EMAIL}
+    password: ${REPORT_PASSWORD}
+
+app:
+  timezone: America/Lima
+scheduler:
+  daily-report:
+    cron: 0 0 3 * * ?
