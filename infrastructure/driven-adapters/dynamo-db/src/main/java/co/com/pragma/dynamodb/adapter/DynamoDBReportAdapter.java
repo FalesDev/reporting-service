@@ -1,5 +1,6 @@
-package co.com.pragma.dynamodb;
+package co.com.pragma.dynamodb.adapter;
 
+import co.com.pragma.dynamodb.entity.ReportEntity;
 import co.com.pragma.dynamodb.helper.TemplateAdapterOperations;
 import co.com.pragma.model.report.Report;
 import co.com.pragma.model.report.gateways.ReportRepository;

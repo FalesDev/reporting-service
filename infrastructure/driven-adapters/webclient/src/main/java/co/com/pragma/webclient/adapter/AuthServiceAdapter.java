@@ -16,15 +16,15 @@ import reactor.core.publisher.Mono;
 public class AuthServiceAdapter implements AuthenticationGateway {
 
     private final WebClient authWebClient;
+    private final String serviceEmail;
+    private final String servicePassword;
 
-    @Value("${job.auth.email}")
-    private String serviceEmail;
-
-    @Value("${job.auth.password}")
-    private String servicePassword;
-
-    public AuthServiceAdapter(@Qualifier("authWebClient") WebClient authWebClient) {
+    public AuthServiceAdapter(@Qualifier("authWebClient") WebClient authWebClient,
+                              @Value("${job.auth.email}") String serviceEmail,
+                              @Value("${job.auth.password}") String servicePassword) {
         this.authWebClient = authWebClient;
+        this.serviceEmail = serviceEmail;
+        this.servicePassword = servicePassword;
     }
 
     @Override

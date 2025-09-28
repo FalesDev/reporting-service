@@ -63,4 +63,4 @@ app:
   timezone: America/Lima
 scheduler:
   daily-report:
-    cron: 0 0 3 * * ?
+    cron: 0 57 16 * * ?

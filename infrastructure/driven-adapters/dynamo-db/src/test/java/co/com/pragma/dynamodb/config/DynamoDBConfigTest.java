@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(MockitoExtension.class)
 class DynamoDBConfigTest {
 
-    /*@Mock
+    @Mock
     private MetricPublisher publisher;
 
     @Mock
@@ -22,22 +22,33 @@ class DynamoDBConfigTest {
     private final DynamoDBConfig dynamoDBConfig = new DynamoDBConfig();
 
     @Test
-    void testAmazonDynamoDB() {
-
+    void testAmazonDynamoDB_LocalOrDefaultProfile() {
         DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDB(
                 "http://aws.dynamo.test",
-                "region",
-                publisher);
+                "us-east-1",
+                publisher
+        );
 
         assertNotNull(result);
     }
 
     @Test
-    void testAmazonDynamoDBAsync() {
+    void testAmazonDynamoDBDocker_Profile() {
+        DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDBDocker(
+                "http://aws.dynamo.docker",
+                "us-east-1",
+                publisher
+        );
 
+        assertNotNull(result);
+    }
+
+    @Test
+    void testAmazonDynamoDBAsync_DevOrProdProfile() {
         DynamoDbAsyncClient result = dynamoDBConfig.amazonDynamoDBAsync(
                 publisher,
-                "region");
+                "us-east-1"
+        );
 
         assertNotNull(result);
     }
@@ -48,5 +59,5 @@ class DynamoDBConfigTest {
         DynamoDbEnhancedAsyncClient result = dynamoDBConfig.getDynamoDbEnhancedAsyncClient(dynamoDbAsyncClient);
 
         assertNotNull(result);
-    }*/
+    }
 }

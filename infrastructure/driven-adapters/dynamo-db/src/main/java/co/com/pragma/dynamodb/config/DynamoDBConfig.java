@@ -61,5 +61,4 @@ public class DynamoDBConfig {
                 .dynamoDbClient(client)
                 .build();
     }
-
 }

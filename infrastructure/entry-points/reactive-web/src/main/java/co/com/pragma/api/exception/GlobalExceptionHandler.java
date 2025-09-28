@@ -2,6 +2,8 @@ package co.com.pragma.api.exception;
 
 import co.com.pragma.api.dto.response.ApiErrorResponse;
 import co.com.pragma.model.exception.EntityNotFoundException;
+import co.com.pragma.model.exception.TokenValidationException;
+import co.com.pragma.model.exception.UnauthorizedException;
 import co.com.pragma.model.gateways.CustomLogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,26 @@ public class GlobalExceptionHandler implements HandlerFilterFunction<ServerRespo
                             .message(ex.getMessage())
                             .build();
                     return ServerResponse.status(HttpStatus.NOT_FOUND.value()).bodyValue(response);
+                })
+                .onErrorResume(UnauthorizedException.class, ex -> {
+                    logger.warn("Authentication failed: " + ex.getMessage());
+                    ApiErrorResponse response = ApiErrorResponse.builder()
+                            .timestamp(OffsetDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME))
+                            .status(HttpStatus.UNAUTHORIZED.value())
+                            .error(HttpStatus.UNAUTHORIZED.name())
+                            .message(ex.getMessage())
+                            .build();
+                    return ServerResponse.status(HttpStatus.UNAUTHORIZED.value()).bodyValue(response);
+                })
+                .onErrorResume(TokenValidationException.class, ex -> {
+                    logger.warn("JWT validation failed: " + ex.getMessage());
+                    ApiErrorResponse response = ApiErrorResponse.builder()
+                            .timestamp(OffsetDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME))
+                            .status(HttpStatus.UNAUTHORIZED.value())
+                            .error(HttpStatus.UNAUTHORIZED.name())
+                            .message(ex.getMessage())
+                            .build();
+                    return ServerResponse.status(HttpStatus.UNAUTHORIZED.value()).bodyValue(response);
                 })
                 .onErrorResume(ex -> {
                     logger.error("Internal server error at: " + ex.getMessage());
