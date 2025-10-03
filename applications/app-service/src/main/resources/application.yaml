@@ -63,4 +63,10 @@ app:
   timezone: America/Lima
 scheduler:
   daily-report:
-    cron: 0 57 16 * * ?
+    cron: 0 0 3 * * ?
+
+springdoc:
+  swagger-ui:
+    path: /reporting/swagger-ui.html
+  api-docs:
+    path: /reporting/v3/api-docs
